@@ -6,14 +6,14 @@ export default class Login extends Component {
   state = {
     username: '',
     password: '',
-    message: ''
+    message: '',
   };
 
   handleChange = event => {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -27,7 +27,7 @@ export default class Login extends Component {
         this.setState({
           message: data.message,
           username: '',
-          password: ''
+          password: '',
         });
       } else {
         // successfully logged in
@@ -41,31 +41,17 @@ export default class Login extends Component {
   render() {
     return (
       <>
-        <h2>Login</h2>
+        <h2>Employee Login</h2>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor='username'>Username: </Form.Label>
-            <Form.Control
-              type='text'
-              name='username'
-              value={this.state.username}
-              onChange={this.handleChange}
-              id='username'
-            />
+            <Form.Control type='text' name='username' value={this.state.username} onChange={this.handleChange} id='username' />
           </Form.Group>
           <Form.Group>
             <Form.Label htmlFor='password'>Password: </Form.Label>
-            <Form.Control
-              type='password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleChange}
-              id='password'
-            />
+            <Form.Control type='password' name='password' value={this.state.password} onChange={this.handleChange} id='password' />
           </Form.Group>
-          {this.state.message && (
-            <Alert variant='danger'>{this.state.message}</Alert>
-          )}
+          {this.state.message && <Alert variant='danger'>{this.state.message}</Alert>}
           <Button type='submit'>Login</Button>
         </Form>
       </>

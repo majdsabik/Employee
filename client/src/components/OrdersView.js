@@ -13,7 +13,7 @@ export default class OrdersView extends React.Component {
   componentDidMount() {
     this.fetchOrders();
   }
-  
+
   fetchOrders() {
     getSubOrders(this.state.restaurantPrefix).then(orders => {
       this.setState({ orders });
@@ -66,6 +66,7 @@ export default class OrdersView extends React.Component {
     } else
       return (
         <div className=' container'>
+          <h2>Pending orders</h2>
           {orders.map(order => (
             <div key={uuid()}>
               <br />
