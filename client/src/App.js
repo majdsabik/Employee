@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import OrdersView from './components/OrdersView'
 import Login from './components/employeeLogin'
 

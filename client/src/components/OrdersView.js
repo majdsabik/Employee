@@ -16,24 +16,26 @@ export default class OrdersView extends React.Component {
     });
   }
 
-  handleSubmit = (event, order) => {
+  /* componentDidUpdate() {
+    getSubOrders(this.state.restaurantPrefix).then(orders => {
+      this.setState({ orders });
+    });
+  } */
+  fetchOrders() {
+    getSubOrders(this.state.restaurantPrefix).then(orders => {
+      this.setState({ orders });
+    });
+  }
+
+  updateOrders = (event, order) => {
     if (order.status === 'placed') {
-      advanceState(order._id, 'inPreparation');
-      getSubOrders(this.state.restaurantPrefix).then(orders => {
-        this.setState({ orders });
-      });
+      advanceState(order._id, 'inPreparation').then(this.fetchOrders());
     }
     if (order.status === 'inPreparation') {
-      advanceState(order._id, 'outForDelivery');
-      getSubOrders(this.state.restaurantPrefix).then(orders => {
-        this.setState({ orders });
-      });
+      advanceState(order._id, 'outForDelivery').then(this.fetchOrders());
     }
     if (order.status === 'outForDelivery') {
-      advanceState(order._id, 'Delivered');
-      getSubOrders(this.state.restaurantPrefix).then(orders => {
-        this.setState({ orders });
-      });
+      advanceState(order._id, 'Delivered').then(this.fetchOrders());
     }
   };
 
@@ -43,14 +45,13 @@ export default class OrdersView extends React.Component {
     return (
       <ul>
         {Object.entries(result).map(item => (
-          <li>{item.join(': ')}</li>
+          <li key={uuid()}>{item.join(': ')}</li>
         ))}
       </ul>
     );
   }
 
   render() {
-    let result = {};
     const { orders } = this.state;
     if (orders.length === 0) {
       return (
@@ -80,8 +81,8 @@ export default class OrdersView extends React.Component {
               <h4>Subtotal: €{order.subTotal}</h4>
               <h4>Created at: {order.createdAt.split('T')[1].substring(0, 8)}</h4>
               <h4>Order Items: {this.calculateQuantiny(order)}</h4>
-              <Button to='/' onClick={event => this.handleSubmit(event, order)}>
-                Advance Statue
+              <Button to='/' onClick={event => this.updateOrders(event, order)}>
+                Change Status
               </Button>
               <br />
               <br />
