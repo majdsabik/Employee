@@ -11,16 +11,9 @@ export default class OrdersView extends React.Component {
   };
 
   componentDidMount() {
-    getSubOrders(this.state.restaurantPrefix).then(orders => {
-      this.setState({ orders });
-    });
+    this.fetchOrders();
   }
-
-  /* componentDidUpdate() {
-    getSubOrders(this.state.restaurantPrefix).then(orders => {
-      this.setState({ orders });
-    });
-  } */
+  
   fetchOrders() {
     getSubOrders(this.state.restaurantPrefix).then(orders => {
       this.setState({ orders });
